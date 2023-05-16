@@ -38,3 +38,19 @@ else {
     # Service doesn't exist
     Write-Host "Service '$serviceName' does not exist."
 }
+
+---------
+# Set the service name
+$serviceName = "MyService"
+
+# Check if the service is running
+if ((Get-Service -Name $serviceName -ErrorAction SilentlyContinue).Status -eq "Running") {
+    # Service is running, so stop it
+    Stop-Service -Name $serviceName
+    Write-Host "Service '$serviceName' was stopped."
+}
+else {
+    # Service is not running
+    Write-Host "Service '$serviceName' is not running."
+}
+
