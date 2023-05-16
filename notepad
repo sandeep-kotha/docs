@@ -6,3 +6,18 @@
         $taskAction = New-ScheduledTaskAction -Execute 'cmd.exe' -Argument '/c C:\path\to\your\batch\file.bat'
         $taskTrigger = New-ScheduledTaskTrigger -AtStartup
         Register-ScheduledTask -TaskName 'RunBatchOnStartup' -Action $taskAction -Trigger $taskTrigger -User 'System' -RunLevel Highest
+
+
+---------
+# Set the service name and display name
+$serviceName = "MyService"
+$displayName = "My Service"
+
+# Set the path to the service executable
+$executablePath = "C:\Path\to\MyService.exe"
+
+# Create a new service using New-Service cmdlet
+New-Service -Name $serviceName -DisplayName $displayName -BinaryPathName $executablePath -StartupType Automatic
+
+# Start the service using Start-Service cmdlet
+Start-Service -Name $serviceName
