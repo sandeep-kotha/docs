@@ -73,4 +73,6 @@ else {
     # Scheduled task already exists
     Write-Host "Scheduled task '$taskName' already exists."
 }
+Unregister-ScheduledTask -TaskName $taskName -Confirm:$false
+
 
