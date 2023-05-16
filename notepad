@@ -1,0 +1,8 @@
+- name: Create scheduled task to run batch file on server start
+  hosts: your_host
+  tasks:
+    - name: Create scheduled task
+      win_shell: |
+        $taskAction = New-ScheduledTaskAction -Execute 'cmd.exe' -Argument '/c C:\path\to\your\batch\file.bat'
+        $taskTrigger = New-ScheduledTaskTrigger -AtStartup
+        Register-ScheduledTask -TaskName 'RunBatchOnStartup' -Action $taskAction -Trigger $taskTrigger -User 'System' -RunLevel Highest
