@@ -54,3 +54,23 @@ else {
     Write-Host "Service '$serviceName' is not running."
 }
 
+-------------------
+# Set the scheduled task parameters
+$taskName = "MyTask"
+$taskCommand = "C:\Path\to\MyScript.ps1"
+$taskTrigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(5)
+$taskAction = New-ScheduledTaskAction -Execute $taskCommand
+
+# Check if the scheduled task already exists
+$existingTask = Get-ScheduledTask -TaskName $taskName -ErrorAction SilentlyContinue
+
+if ($existingTask -eq $null) {
+    # Scheduled task does not exist, so register it
+    Register-ScheduledTask -TaskName $taskName -Trigger $taskTrigger -Action $taskAction -RunLevel Highest
+    Write-Host "Scheduled task '$taskName' was registered."
+}
+else {
+    # Scheduled task already exists
+    Write-Host "Scheduled task '$taskName' already exists."
+}
+
