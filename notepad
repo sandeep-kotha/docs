@@ -21,3 +21,20 @@ New-Service -Name $serviceName -DisplayName $displayName -BinaryPathName $execut
 
 # Start the service using Start-Service cmdlet
 Start-Service -Name $serviceName
+
+-----
+
+# Set the service name
+$serviceName = "MyService"
+
+# Check if the service exists
+if (Get-Service -Name $serviceName -ErrorAction SilentlyContinue) {
+    # Service exists, so stop and delete it
+    Stop-Service -Name $serviceName
+    Remove-Service -Name $serviceName
+    Write-Host "Service '$serviceName' was stopped and deleted."
+}
+else {
+    # Service doesn't exist
+    Write-Host "Service '$serviceName' does not exist."
+}
